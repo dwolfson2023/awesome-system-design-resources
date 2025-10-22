@@ -1,4 +1,4 @@
-package implementations.java.rate_limiting;
+package rate_limiting;
 
 import java.time.Instant;
 

@@ -1,4 +1,4 @@
-package implementations.java.rate_limiting;
+package rate_limiting;
 
 import java.time.Instant;
 
@@ -32,5 +32,20 @@ public class TokenBucket {
         double tokensToAdd = (now.toEpochMilli() - lastRefillTimestamp.toEpochMilli()) * fillRate / 1000.0;
         this.tokens = Math.min(capacity, this.tokens + tokensToAdd);  // Add tokens, but don't exceed capacity
         this.lastRefillTimestamp = now;
+    }
+
+    public static void main(String[] args) {
+        TokenBucket tokenBucket = new TokenBucket(10, 1.0); // Capacity of 10 tokens, refill rate of 1 token per second
+
+        // Simulate requests
+        for (int i = 0; i < 150; i++) {
+            boolean allowed = tokenBucket.allowRequest(1); // Each request consumes 1 token
+            System.out.println("Request " + (i + 1) + ": " + (allowed ? "Allowed" : "Denied"));
+            try {
+                Thread.sleep(50); // Wait for 500 milliseconds between requests
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
