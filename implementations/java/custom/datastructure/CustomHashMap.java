@@ -1,4 +1,4 @@
-package hashmap;
+package custom.datastructure;
 
 public class CustomHashMap<K, V>{
     private static final int INITIAL_CAPACITY = 1 << 4;
